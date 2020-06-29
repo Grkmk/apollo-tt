@@ -1,1 +1,1 @@
-graphql apollo fullstack tutorial
+sample project with graphql apollo and sql
