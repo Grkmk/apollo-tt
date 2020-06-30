@@ -13,7 +13,14 @@ const link = new HttpLink({ uri: process.env.REACT_APP_URI });
 
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
-  link
+  link: new HttpLink({
+    uri: process.env.REACT_APP_URI + '/graphql',
+    headers: { authorization: localStorage.getItem('token') }
+  })
+});
+
+cache.writeData({
+  data: { isLoggedIn: !!localStorage.getItem('token'), cartItems: [] }
 });
 
 injectStyles();

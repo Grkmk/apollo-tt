@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 
+// fragments
 export const LAUNCH_TILE_DATA = gql`
   fragment LaunchTile on Launch {
     id
@@ -15,6 +16,14 @@ export const LAUNCH_TILE_DATA = gql`
   }
 `;
 
+// mutations
+export const LOGIN_USER = gql`
+  mutation login($email: String!) {
+    login(email: $email)
+  }
+`;
+
+// queries
 export const GET_LAUNCHES = gql`
   query launchList($after: String) {
     launches(after: $after) {
