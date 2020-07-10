@@ -12,7 +12,7 @@ export const typeDefs = gql`
   }
 
   extend type Mutation {
-    addOrRemoveFromCart(id: ID): [ID!]!
+    addOrRemoveFromCart(id: ID!): [ID!]!
   }
 `;
 
@@ -25,6 +25,7 @@ export const schema = gql`
 // fragments
 export const LAUNCH_TILE_DATA = gql`
   fragment LaunchTile on Launch {
+    __typename
     id
     isBooked
     rocket {
@@ -40,7 +41,7 @@ export const LAUNCH_TILE_DATA = gql`
 
 // mutations
 export const LOGIN_USER = gql`
-  mutation login($email: String!) {
+  mutation Login($email: String!) {
     login(email: $email)
   }
 `;
@@ -79,7 +80,7 @@ export const CANCEL_TRIP = gql`
 
 // queries
 export const GET_LAUNCHES = gql`
-  query launchList($after: String) {
+  query GetLaunchList($after: String) {
     launches(after: $after) {
       cursor
       hasMore
@@ -128,7 +129,7 @@ export const GET_LAUNCH = gql`
 `;
 
 // queries - local data
-export const IS_LOGGED_IN = qgl`
+export const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
   }

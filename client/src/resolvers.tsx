@@ -1,7 +1,7 @@
 import { ApolloCache } from 'apollo-cache';
 import { Resolvers } from 'apollo-client';
 
-import { typeDefs, schema, GET_CART_ITEMS } from './queries';
+import { GET_CART_ITEMS } from './queries';
 import * as GetCartItemTypes from './pages/__generated__/GetCartItems';
 import * as LaunchTileTypes from './pages/__generated__/LaunchTile';
 
@@ -26,16 +26,13 @@ export const resolvers: AppResolvers = {
       const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems>({
         query: GET_CART_ITEMS
       });
-      if (queryResult) {
-        return queryResult.cartItems.includes(launch.id);
-      } else {
-        return false;
-      }
+      if (queryResult) return queryResult.cartItems.includes(launch.id);
+      return false;
     }
   },
   Mutation: {
     addOrRemoveFromCart: (_, { id }: { id: string }, { cache }): string[] => {
-      const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems, any>({
+      const queryResult = cache.readQuery<GetCartItemTypes.GetCartItems>({
         query: GET_CART_ITEMS
       });
 

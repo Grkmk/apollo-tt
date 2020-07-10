@@ -15,8 +15,7 @@ const Launches: React.FC<LaunchesProps> = () => {
   >(GET_LAUNCHES);
 
   if (loading) return <Loading />;
-  if (error) return <p>ERROR</p>;
-  if (!data) return <p>Not found</p>;
+  if (error || !data) return <p>ERROR</p>;
 
   return (
     <Fragment>

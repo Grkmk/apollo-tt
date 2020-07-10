@@ -1,9 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 
 import LaunchTile from '../components/launch-tile';
-import { LAUNCH_TILE_DATA, GET_LAUNCH } from '../queries';
+import { GET_LAUNCH } from '../queries';
 import * as LaunchDetailTypes from '../pages/__generated__/LaunchDetails';
 
 interface CartItemProps extends LaunchDetailTypes.LaunchDetailsVariables {}

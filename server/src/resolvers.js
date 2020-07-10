@@ -14,16 +14,14 @@ module.exports = {
         launches,
         cursor: launches.length ? launches[launches.length - 1].cursor : null,
         hasMore: launches.length
-          ? launches[launches.length - 1].curser !==
-            allLaunches[allLaunches.length - 1].curser
+          ? launches[launches.length - 1].cursor !==
+            allLaunches[allLaunches.length - 1].cursor
           : false
       };
     },
     launch: (_, { id }, { dataSources }) =>
-      dataSources.launchAPI.getLaunchById({
-        launchId: id
-      }),
-    me: (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser()
+      dataSources.launchAPI.getLaunchById({ launchId: id }),
+    me: async (_, __, { dataSources }) => dataSources.userAPI.findOrCreateUser()
   },
   Mutation: {
     login: async (_, { email }, { dataSources }) => {
@@ -47,7 +45,7 @@ module.exports = {
       };
     },
     cancelTrip: async (_, { launchId }, { dataSources }) => {
-      const result = await dataSources.userAPI.cancelTrip({ launchId });
+      const result = dataSources.userAPI.cancelTrip({ launchId });
       if (!result) return { success: false, message: 'failed to cancel' };
 
       const launch = await dataSources.launchAPI.getLaunchById({ launchId });

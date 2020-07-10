@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -12,9 +12,6 @@ interface LaunchProps extends RouteComponentProps {
 }
 
 const Launch: React.FC<LaunchProps> = ({ launchId }) => {
-  const [image, setImage] = useState('');
-  const [name, setName] = useState('');
-
   const { data, loading, error } = useQuery<
     LaunchDetailsTypes.LaunchDetails,
     LaunchDetailsTypes.LaunchDetailsVariables
@@ -24,22 +21,15 @@ const Launch: React.FC<LaunchProps> = ({ launchId }) => {
   if (error) return <p>ERROR: {error.message}</p>;
   if (!data) return <p>Not found</p>;
 
-  useEffect(() => {
-    if (data.launch && data.launch.mission && data.launch.mission.name) {
-      setName(data.launch.mission.name);
-    }
-    if (
-      data.launch &&
-      data.launch.mission &&
-      data.launch.mission.missionPatch
-    ) {
-      setImage(data.launch.mission.missionPatch);
-    }
-  }, [data]);
-
   return (
     <Fragment>
-      <Header image={image}>{name}</Header>
+      <Header
+        image={
+          data.launch && data.launch.mission && data.launch.mission.missionPatch
+        }
+      >
+        {data && data.launch && data.launch.mission && data.launch.mission.name}
+      </Header>
       <LaunchDetail {...data.launch} />
       <ActionButton {...data.launch} />
     </Fragment>
